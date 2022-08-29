@@ -5,15 +5,16 @@ public class ICA1
     public static void main(String[] args)
     {
         //Declare variables
-        double teaspoonsIn;
+        double teaspoonsIn = 0;
         Scanner askForTeaspoons = new Scanner(System.in);
-
+        
         //Get User Input
         System.out.print("Enter the amount in teaspoons: ");
         teaspoonsIn = askForTeaspoons.nextDouble();
 
+        System.out.println();
         //Print Results
-        System.out.println('\n' + teaspoonsIn + " teaspoons is:");
+        System.out.println(teaspoonsIn + " teaspoons is:");
         System.out.println(teaspoonsIn/3 + " Tablespoons");
         System.out.println(teaspoonsIn/48 + " Cups");
         System.out.println(teaspoonsIn/96 + " Pints");
