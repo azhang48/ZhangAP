@@ -20,6 +20,7 @@ public class insertionSort
                 }
             }
 
+            //Printing
             for(int k=0; k<i; k++)                              //For loop that runs to one before the end of our sorted loop
             {
                 System.out.printf("%-2d ", testArr[k]);
