@@ -11,7 +11,7 @@ public class insertionSort
         {
             valueHolder = testArr[i];      //Holds the value we are comparing in an int, so we don't have to worry about the offset of the value we are checking changing
  
-            for(int j=(i-1); j>=0; j--) //Inner Loop
+            for(int j=(i-1); j>=0; j--) //Inner Loop, starts at the offset right before the value we are currently sorting, decrements until we reach offset 0
             {
                 if(valueHolder < testArr[j]) //If the value of the number we are comparing is less than the number before it, we will swap the two
                 {
