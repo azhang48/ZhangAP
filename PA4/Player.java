@@ -9,8 +9,8 @@ public class Player
     public Player()
     {
         health = (int)(Math.random()*10+1);
-        armor = (int)(Math.random()*10+1);
-        mArmor = (int)(Math.random()*10+1);
+        armor = (int)(Math.random()*10);
+        mArmor = (int)(Math.random()*10);
     }
     //Paramaterized Constructor
     public Player(int healthIn, int armorIn, int mArmorIn)
@@ -47,8 +47,24 @@ public class Player
     }
 
     //Class Specific Methods
+    //Prints out a users stats
     public void stats()
     {
-        System.out.printf("%s %d%n%s %d%n%s %d%n", "Health:", health, "Armor:", armor, "Magic Armor:", mArmor);
+        System.out.printf("%s %d%n%s %d%n%s %d%n%n", "Health:", health, "Armor:", armor, "Magic Armor:", mArmor);
+    }
+    //Change Health of a player
+    public void changeHealth(int in)
+    {
+        health += in;
+    }
+    //Decrease armor stat
+    public void armorHit()
+    {
+        armor--;
+    }
+    //Decrease magic armor stat
+    public void mArmorHit()
+    {
+        mArmor--;
     }
 }
