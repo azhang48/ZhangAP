@@ -1,5 +1,3 @@
-import javax.lang.model.util.ElementScanner14;
-
 public class Board
 {
     //Declare variables
@@ -12,6 +10,10 @@ public class Board
     }
 
     //Setters
+    public int getTile(int x, int y)
+    {
+        return board[y][x];
+    }
     public void setTile(int x, int y, int numIn)
     {
         board[y][x] = numIn;
@@ -43,5 +45,6 @@ public class Board
                 }
             }
         }
+        System.out.printf("%n%s%n"," 1  2  3  4  5  6  7");
     }
 }
