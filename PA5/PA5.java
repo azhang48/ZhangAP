@@ -11,9 +11,6 @@ public class PA5
         int playerMove = 0;
         Scanner in = new Scanner(System.in);
 
-        board.setTile(0, 6, 2);
-        board.setTile(6, 5, 1);
-
         //Start Game
         while(gameRunning)
         {
@@ -30,6 +27,7 @@ public class PA5
                 if(moveOK(playerMove, board))
                 {
                     validMove = true;
+                    makeMove(playerMove-1, 1, board);
                 }
             }
             validMove = false;
@@ -52,5 +50,32 @@ public class PA5
         {
             return true;
         }
+    }
+    //Make Move
+    public static void makeMove(int move, int playerNum, Board boardIn)
+    {
+        int row = 7;
+        boolean moveOk = true;
+        while(moveOk)
+        {
+            //Makes sure array stays inbounds
+            if(row > 0)
+            {
+                //Checks if the row under is empty, and moves it down if it is
+                if(boardIn.getTile(move, row-1) == 0)
+                {
+                    row--;
+                }
+                else
+                {
+                    moveOk = false;
+                }
+            }
+            else
+            {
+                moveOk = false;
+            }
+        }
+        boardIn.setTile(move, row, playerNum);
     }
 }
