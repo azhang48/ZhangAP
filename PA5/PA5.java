@@ -30,8 +30,17 @@ public class PA5
                     makeMove(playerMove-1, 1, board);
                 }
             }
-            validMove = false;
             board.printBoard();
+
+            //Check if game is over
+            if(checkGameOver(board))
+            {
+                gameRunning = false;
+            }
+            else
+            {
+                validMove = false;
+            }
 
             //Player 2 Move
             while(validMove == false)
@@ -47,14 +56,19 @@ public class PA5
                     makeMove(playerMove-1, 2, board);
                 }
             }
-            validMove = false;
             
-            if(winCheckLeft(4, 0, 1, board, 1))
+            //Check if game is over
+            if(checkGameOver(board))
             {
-                System.out.println("Player 1 wins");
+                gameRunning = false;
+            }
+            else
+            {
+                validMove = false;
             }
         }
-    }
+        System.out.println("Game Over");
+}
     //Checks if the game is over
     public static boolean checkGameOver(Board boardIn)
     {
@@ -72,8 +86,36 @@ public class PA5
                 //Will check if there is a horizontal win to the right from our current tile if there is three tiles to the right
                 if(x+3 < 7)
                 {
-                    if(winCheckRight(x, y, boardIn.getTile(x, y), boardIn, 1))
+                    if(winCheckHorizontal(x, y, boardIn.getTile(x, y), boardIn, 1))
                     {
+                        System.out.printf("%s %d %s%n", "Player",boardIn.getTile(x, y),"wins!");
+                        return true;
+                    }
+                }
+                //Will check for vertical wins if there is at least three tiles above our tile
+                if(y+3 < 7)
+                {
+                    if(winCheckVertical(x, y, boardIn.getTile(x, y), boardIn, 1))
+                    {
+                        System.out.printf("%s %d %s%n", "Player",boardIn.getTile(x, y),"wins!");
+                        return true;
+                    }
+                }
+                //Will check for upwards diagonal wins as long as there are three tiles free up and right
+                if(x<4&&y<4)
+                {
+                    if(winCheckDiagonal1(x, y, boardIn.getTile(x, y), boardIn, 1))
+                    {
+                        System.out.printf("%s %d %s%n", "Player",boardIn.getTile(x, y),"wins!");
+                        return true;
+                    }
+                }
+                //Will check for downwards diagonal wins as long as there are three tiles free down and right
+                if(x<4&&y>2)
+                {
+                    if(winCheckDiagonal2(x, y, boardIn.getTile(x, y), boardIn, 1))
+                    {
+                        System.out.printf("%s %d %s%n", "Player",boardIn.getTile(x, y),"wins!");
                         return true;
                     }
                 }
@@ -97,8 +139,8 @@ public class PA5
         }
         return false;
     }
-    //Checks if there is a win to the right
-    public static boolean winCheckRight(int x, int y, int playerNum, Board boardIn, int inARow)
+    //Checks if there is a win to the horizontal to the right from a given x, y tile
+    public static boolean winCheckHorizontal(int x, int y, int playerNum, Board boardIn, int inARow)
     {
         if(inARow == 4)
         {
@@ -108,7 +150,7 @@ public class PA5
         {
             if(boardIn.getTile(x+1, y) == playerNum)
             {
-                return winCheckRight(x+1, y, playerNum, boardIn, inARow+1);
+                return winCheckHorizontal(x+1, y, playerNum, boardIn, inARow+1);
             }
             else
             {
@@ -116,8 +158,8 @@ public class PA5
             }
         }
     }
-    //Checks if there is a win to the left
-    public static boolean winCheckLeft(int x, int y, int playerNum, Board boardIn, int inARow)
+    //Checks if there is a win upward from a given x, y tile
+    public static boolean winCheckVertical(int x, int y, int playerNum, Board boardIn, int inARow)
     {
         if(inARow == 4)
         {
@@ -125,10 +167,47 @@ public class PA5
         }
         else
         {
-            if(boardIn.getTile(x-1, y) == playerNum)
+            if(boardIn.getTile(x, y+1) == playerNum)
             {
-                System.out.println("x: " + x + " Inarow: " + inARow);
-                return winCheckLeft(x-1, y, playerNum, boardIn, inARow+1);
+                return winCheckVertical(x, y+1, playerNum, boardIn, inARow+1);
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+    //Checks if there is a win Diagonal going up right
+    public static boolean winCheckDiagonal1(int x, int y, int playerNum, Board boardIn, int inARow)
+    {
+        if(inARow == 4)
+        {
+            return true;
+        }
+        else
+        {
+            if(boardIn.getTile(x+1, y+1) == playerNum)
+            {
+                return winCheckDiagonal1(x+1, y+1, playerNum, boardIn, inARow+1);
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+    //Checks if there is a win Diagonal going down right
+    public static boolean winCheckDiagonal2(int x, int y, int playerNum, Board boardIn, int inARow)
+    {
+        if(inARow == 4)
+        {
+            return true;
+        }
+        else
+        {
+            if(boardIn.getTile(x+1, y-1) == playerNum)
+            {
+                return winCheckDiagonal2(x+1, y-1, playerNum, boardIn, inARow+1);
             }
             else
             {
